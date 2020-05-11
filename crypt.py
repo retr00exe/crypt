@@ -1,9 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from encrypt import *
+from decrypt import *
 
 
-class Ui_MainWindow(object):
-    
+class UI_MainWindow(object):
     listJenis = ["Base64","Base32","Base16","Ascii85","ASCII","Reverse","ROT13","MD5","SHA-1","SHA-224","SHA-256","SHA-384","SHA-512"]
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -17,7 +17,8 @@ class Ui_MainWindow(object):
         for jenis in self.listJenis:
             self.comboBoxPilihJenis.addItem(jenis)
         inputComboBox = self.comboBoxPilihJenis.currentText()
-
+        self.comboBoxPilihJenis.currentIndexChanged.connect(self.disable)
+        
 #=======================================================================================================================================================#
 #LABEL
         self.labelPlainText1 = QtWidgets.QLabel(self.centralwidget)
@@ -64,7 +65,7 @@ class Ui_MainWindow(object):
         self.pushButtonDecrypt.setGeometry(QtCore.QRect(530, 230, 141, 28))
         self.pushButtonDecrypt.setIconSize(QtCore.QSize(20, 20))
         self.pushButtonDecrypt.setObjectName("pushButtonDecrypt")
-        self.pushButtonEncrypt.clicked.connect(self.decrypt)
+        self.pushButtonDecrypt.clicked.connect(self.decrypt)
 
         self.textEditPlainText2 = QtWidgets.QTextEdit(self.centralwidget)
         self.textEditPlainText2.setGeometry(QtCore.QRect(530, 320, 391, 111))
@@ -108,7 +109,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Enkripsi dan Dekripsi Kriptografi"))
+        MainWindow.setWindowIcon(QtGui.QIcon('icon.jpg'))
         counter=len(self.listJenis)
         for jenis in self.listJenis:
             self.comboBoxPilihJenis.setItemText(counter, _translate("MainWindow",jenis))
@@ -130,17 +132,26 @@ class Ui_MainWindow(object):
         self.textEditEncryptedText1.setText(solve.getValue())
 
     def decrypt(self):
-        textboxValue = self.textEditPlainText1.toPlainText()
+        textboxValue = self.textEditEncryptedText2.toPlainText()
         inputComboBox = self.comboBoxPilihJenis.currentText()
         solve = decrypt()
         solve.setValue(inputComboBox,textboxValue)
-        self.textEditEncryptedText1.setText(solve.getValue())
+        self.textEditPlainText2.setText(solve.getValue())
+
+    def disable(self):
+        inputComboBox = self.comboBoxPilihJenis.currentText()
+        if(inputComboBox=="MD5" or inputComboBox=="SHA-1" or inputComboBox=="SHA-224" or inputComboBox=="SHA-256" or inputComboBox=="SHA-384" or inputComboBox=="SHA-512"):
+            self.textEditEncryptedText2.setDisabled(True)
+            self.textEditPlainText2.setDisabled(True)
+        else:
+            self.textEditEncryptedText2.setDisabled(False)
+            self.textEditPlainText2.setDisabled(False)
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = UI_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
