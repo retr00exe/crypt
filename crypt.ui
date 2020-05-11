@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1019</width>
+    <height>522</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QComboBox" name="comboBoxPilihJenis">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Base64</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Base32</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>URL Encoding</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ASCII</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Reverse</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ROT13</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>MD5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SHA-1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SHA-256</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SHA-512</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="pushButtonEncrypt">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>230</y>
+      <width>141</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Encrypt</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelPlainText1">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>55</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Plain Text</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelEncryptedText1">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>290</y>
+      <width>231</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Encrypted Text</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEditPlainText1">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>391</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEditEncryptedText1">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>320</y>
+      <width>391</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEditEncryptedText2">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>110</y>
+      <width>391</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelEncryptedText2">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>80</y>
+      <width>231</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Encrypted Text</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelPlainText2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>290</y>
+      <width>55</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Plain Text</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEditPlainText2">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>320</y>
+      <width>391</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonDecrypt">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>230</y>
+      <width>141</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Decrypt</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1019</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuEncrpyt">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuEncrpyt"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionBase64">
+   <property name="text">
+    <string>Base64</string>
+   </property>
+  </action>
+  <action name="actionCaesar_Cipher">
+   <property name="text">
+    <string>Caesar Cipher</string>
+   </property>
+  </action>
+  <action name="actionBase64_2">
+   <property name="text">
+    <string>Base64</string>
+   </property>
+  </action>
+  <action name="actionBase32">
+   <property name="text">
+    <string>Base32</string>
+   </property>
+  </action>
+  <action name="actionAscii85">
+   <property name="text">
+    <string>Ascii85</string>
+   </property>
+  </action>
+  <action name="actionROT13">
+   <property name="text">
+    <string>ROT13</string>
+   </property>
+  </action>
+  <action name="actionMD5">
+   <property name="text">
+    <string>MD5</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
