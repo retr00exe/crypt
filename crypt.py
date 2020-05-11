@@ -1,14 +1,5 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'crypt.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from encoding import *
+from encrypt import *
 
 
 class Ui_MainWindow(object):
@@ -28,7 +19,7 @@ class Ui_MainWindow(object):
         inputComboBox = self.comboBoxPilihJenis.currentText()
 
 #=======================================================================================================================================================#
-        
+#LABEL
         self.labelPlainText1 = QtWidgets.QLabel(self.centralwidget)
         self.labelPlainText1.setEnabled(True)
         self.labelPlainText1.setGeometry(QtCore.QRect(30, 80, 55, 20))
@@ -57,17 +48,14 @@ class Ui_MainWindow(object):
         self.pushButtonEncrypt.setGeometry(QtCore.QRect(30, 230, 141, 28))
         self.pushButtonEncrypt.setIconSize(QtCore.QSize(20, 20))
         self.pushButtonEncrypt.setObjectName("pushButtonEncrypt")
-        
-        self.pushButtonEncrypt.clicked.connect(self.solver)
-
-    
+        self.pushButtonEncrypt.clicked.connect(self.encrypt)
 
         self.textEditEncryptedText1 = QtWidgets.QTextEdit(self.centralwidget)
         self.textEditEncryptedText1.setGeometry(QtCore.QRect(30, 320, 391, 111))
         self.textEditEncryptedText1.setObjectName("textEditEncryptedText1")
 
 #=======================================================================================================================================================#
-
+#DECRYPT
         self.textEditEncryptedText2 = QtWidgets.QTextEdit(self.centralwidget)
         self.textEditEncryptedText2.setGeometry(QtCore.QRect(530, 110, 391, 111))
         self.textEditEncryptedText2.setObjectName("textEditEncryptedText2")
@@ -76,10 +64,13 @@ class Ui_MainWindow(object):
         self.pushButtonDecrypt.setGeometry(QtCore.QRect(530, 230, 141, 28))
         self.pushButtonDecrypt.setIconSize(QtCore.QSize(20, 20))
         self.pushButtonDecrypt.setObjectName("pushButtonDecrypt")
+        self.pushButtonEncrypt.clicked.connect(self.decrypt)
 
         self.textEditPlainText2 = QtWidgets.QTextEdit(self.centralwidget)
         self.textEditPlainText2.setGeometry(QtCore.QRect(530, 320, 391, 111))
         self.textEditPlainText2.setObjectName("textEditPlainText2")
+
+#=======================================================================================================================================================#
         
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -112,7 +103,6 @@ class Ui_MainWindow(object):
         self.menuEncrpyt.addAction(self.actionNew)
         self.menuEncrpyt.addAction(self.actionQuit)
         self.menubar.addAction(self.menuEncrpyt.menuAction())
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -132,113 +122,19 @@ class Ui_MainWindow(object):
         self.actionNew.setText(_translate("MainWindow", "New"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
 
-    def solver(self):
+    def encrypt(self):
         textboxValue = self.textEditPlainText1.toPlainText()
         inputComboBox = self.comboBoxPilihJenis.currentText()
-        solve = solver(inputComboBox,textboxValue)
-        hasil = solve.encrypt(inputComboBox,textboxValue)
-        self.textEditEncryptedText1.setText(hasil)
+        solve = encrypt()
+        solve.setValue(inputComboBox,textboxValue)
+        self.textEditEncryptedText1.setText(solve.getValue())
 
-    def encrypt(self):
-        import base64, hashlib, codecs
-
+    def decrypt(self):
+        textboxValue = self.textEditPlainText1.toPlainText()
         inputComboBox = self.comboBoxPilihJenis.currentText()
-        if(inputComboBox=="Base64"):
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            base64_bytes = base64.b64encode(textUTF8)
-            base64 = base64_bytes.decode("utf-8")
-            self.textEditEncryptedText1.setText(base64)
-
-        if(inputComboBox=="Base32"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            base32_bytes = base64.b32encode(textUTF8)
-            base32 = base32_bytes.decode("utf-8")
-            self.textEditEncryptedText1.setText(base32)
-
-        if(inputComboBox=="Base16"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            base16_bytes = base64.b16encode(textUTF8)
-            base16 = base16_bytes.decode("utf-8")
-            self.textEditEncryptedText1.setText(base16)
-
-        if(inputComboBox=="Ascii85"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            Ascii85_bytes = base64.b85encode(textUTF8)
-            Ascii85 = Ascii85_bytes.decode("utf-8")
-            self.textEditEncryptedText1.setText(Ascii85)
-
-        if(inputComboBox=="ASCII"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            asciiText = ' '.join(str(ord(c))for c in textboxValue)
-            self.textEditEncryptedText1.setText(asciiText)
-
-        if(inputComboBox=="Reverse"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            reverse = textboxValue[::-1]
-            self.textEditEncryptedText1.setText(reverse)
-
-        if(inputComboBox=="ROT13"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            rot13 = codecs.encode(textboxValue, 'rot_13')
-            self.textEditEncryptedText1.setText(rot13)
-
-        if(inputComboBox=="MD5"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            hash = hashlib.md5(textUTF8)
-            md5 = hash.hexdigest()
-            self.textEditEncryptedText1.setText(md5)
-
-        if(inputComboBox=="SHA-1"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            hash = hashlib.sha1(textUTF8)
-            sha1 = hash.hexdigest()
-            self.textEditEncryptedText1.setText(sha1)
-
-        if(inputComboBox=="SHA-224"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            hash = hashlib.sha224(textUTF8)
-            sha224 = hash.hexdigest()
-            self.textEditEncryptedText1.setText(sha224)
-
-        if(inputComboBox=="SHA-256"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            hash = hashlib.sha256(textUTF8)
-            sha256 = hash.hexdigest()
-            self.textEditEncryptedText1.setText(sha256)
-
-        if(inputComboBox=="SHA-384"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            hash = hashlib.sha384(textUTF8)
-            sha384 = hash.hexdigest()
-            self.textEditEncryptedText1.setText(sha384)
-
-        if(inputComboBox=="SHA-512"):
-            self.textEditEncryptedText1.setText("")
-            textboxValue = self.textEditPlainText1.toPlainText()
-            textUTF8 = textboxValue.encode("utf-8")
-            hash = hashlib.sha512(textUTF8)
-            sha512 = hash.hexdigest()
-            self.textEditEncryptedText1.setText(sha512)
+        solve = decrypt()
+        solve.setValue(inputComboBox,textboxValue)
+        self.textEditEncryptedText1.setText(solve.getValue())
 
 if __name__ == "__main__":
     import sys
