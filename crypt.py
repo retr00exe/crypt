@@ -137,6 +137,8 @@ class UI_MainWindow(object):
         inputComboBox = self.comboBoxPilihJenis.currentText()
         hashList = ["MD5","SHA-1","SHA-224","SHA-256","SHA-384","SHA-512"]
         if(inputComboBox in hashList):
+            self.textEditEncryptedText2.setText("")
+            self.textEditPlainText2.setText("")
             self.textEditEncryptedText2.setDisabled(True)
             self.textEditPlainText2.setDisabled(True)
         else:
