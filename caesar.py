@@ -36,19 +36,34 @@ class Ui_CaesarWindow(object):
         font.setPointSize(12)
         self.labelShift.setFont(font)
         self.labelShift.setObjectName("labelShift")
+
         self.labelPlainText1 = QtWidgets.QLabel(self.centralwidget)
         self.labelPlainText1.setGeometry(QtCore.QRect(20, 130, 81, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.labelPlainText1.setFont(font)
         self.labelPlainText1.setObjectName("labelPlainText1")
-        self.labelCipherText = QtWidgets.QLabel(self.centralwidget)
-        self.labelCipherText.setGeometry(QtCore.QRect(20, 320, 131, 16))
+
+        self.labelCipherText1 = QtWidgets.QLabel(self.centralwidget)
+        self.labelCipherText1.setGeometry(QtCore.QRect(20, 320, 131, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.labelCipherText.setFont(font)
-        self.labelCipherText.setObjectName("labelCipherText")
+        self.labelCipherText1.setFont(font)
+        self.labelCipherText1.setObjectName("labelCipherText1")
 
+        self.labelPlainText2 = QtWidgets.QLabel(self.centralwidget)
+        self.labelPlainText2.setGeometry(QtCore.QRect(450, 130, 81, 16))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.labelPlainText2.setFont(font)
+        self.labelPlainText2.setObjectName("labelPlainText2")
+
+        self.labelCipherText2 = QtWidgets.QLabel(self.centralwidget)
+        self.labelCipherText2.setGeometry(QtCore.QRect(450, 320, 131, 16))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.labelCipherText2.setFont(font)
+        self.labelCipherText2.setObjectName("labelCipherText2")
 
         self.lineEditShift = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEditShift.setGeometry(QtCore.QRect(80, 70, 81, 22))
@@ -91,9 +106,9 @@ class Ui_CaesarWindow(object):
         self.pushButtonEncrypt.clicked.connect(self.encrypt)
 
         self.pushButtonDecrypt = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonDecrypt.setGeometry(QtCore.QRect(130, 510, 93, 28))
+        self.pushButtonDecrypt.setGeometry(QtCore.QRect(450, 510, 93, 28))
         self.pushButtonDecrypt.setObjectName("pushButtonDecrypt")
-        self.pushButtonEncrypt.clicked.connect(self.decrypt)
+        self.pushButtonDecrypt.clicked.connect(self.decrypt)
 
         CaesarWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(CaesarWindow)
@@ -113,7 +128,9 @@ class Ui_CaesarWindow(object):
         self.labelCaesar.setText(_translate("CaesarWindow", "Caesar Cipher"))
         self.labelShift.setText(_translate("CaesarWindow", "Shift :"))
         self.labelPlainText1.setText(_translate("CaesarWindow", "Input"))
-        self.labelCipherText.setText(_translate("CaesarWindow", "Output"))
+        self.labelCipherText1.setText(_translate("CaesarWindow", "Output"))
+        self.labelPlainText2.setText(_translate("CaesarWindow", "Input"))
+        self.labelCipherText2.setText(_translate("CaesarWindow", "Output"))
         self.pushButtonEncrypt.setText(_translate("CaesarWindow", "Encrypt"))
         self.pushButtonDecrypt.setText(_translate("CaesarWindow", "Decrypt"))
     
@@ -131,17 +148,17 @@ class Ui_CaesarWindow(object):
         self.textEditCipherText1.setText(encrypted)
 
     def decrypt(self):
-        textboxValue = self.textEditPlainText1.toPlainText()
+        textboxValue = self.textEditPlainText2.toPlainText()
         shift = int(self.lineEditShift.text())
         decrypted = "" 
         for char in textboxValue:
             if char == ' ':
                 decrypted = decrypted + char
             elif  char.isupper():
-                decrypted = decrypted + chr((ord(char) + shift + 65) % 26 + 65)
+                decrypted = decrypted + chr((ord(char) - shift - 65) % 26 + 65)
             else:
-                decrypted = decrypted + chr((ord(char) + shift + 97) % 26 + 97)
-        self.textEditCipherText1.setText(decrypted)
+                decrypted = decrypted + chr((ord(char) - shift - 97) % 26 + 97)
+        self.textEditCipherText2.setText(decrypted)
 
 
 if __name__ == "__main__":
