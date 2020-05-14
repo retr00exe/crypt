@@ -1,14 +1,6 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'vigenere.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 class Ui_VigenereWindow(object):
     def setupUi(self, VigenereWindow):
@@ -98,8 +90,6 @@ class Ui_VigenereWindow(object):
         string = self.textEditPlainText.toPlainText()
         inputKey = self.lineEditKey.text()
         key = self.generateKey(string,inputKey)
-        print(string)
-        print(key)
         for i in range(len(string)): 
             x = (ord(string[i]) + ord(key[i])) % 26
             x += ord('A') 

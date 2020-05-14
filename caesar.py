@@ -1,26 +1,16 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'caesar.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-
 class Ui_CaesarWindow(object):
     def setupUi(self, CaesarWindow):
         CaesarWindow.setObjectName("CaesarWindow")
-        CaesarWindow.resize(420, 585)
+        CaesarWindow.resize(420, 601)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         CaesarWindow.setFont(font)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Caesar.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("caesar.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         CaesarWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(CaesarWindow)
         self.centralwidget.setObjectName("centralwidget")
