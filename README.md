@@ -1,11 +1,10 @@
 # Enkripsi dan Dekripsi Kriptografi
-Tugas Akhir PDKP
-Erandri Mekel Ilyasa
-21120119130108
+Tugas Akhir PDKP <br>
+Erandri Mekel Ilyasa <br>
+21120119130108 <br>
 
 Python version 3.8.1 <br>
 GUI platform PyQt5 <br>
-<br>
 
 Install PyQt5
 ```
