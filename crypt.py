@@ -1,13 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, qApp
+from PyQt5.QtWidgets import QApplication, qApp, QMessageBox
 from encrypt import *
 from decrypt import *
+from caesar import *
 
 class UI_MainWindow(object):
     listJenis = ["Base64","Base32","Base16","Ascii85","ASCII","Reverse","ROT13","MD5","SHA-1","SHA-224","SHA-256","SHA-384","SHA-512"]
     def setupUI(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1000, 500)
+        MainWindow.resize(950, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -40,6 +41,10 @@ class UI_MainWindow(object):
         self.labelEncryptedText2 = QtWidgets.QLabel(self.centralwidget)
         self.labelEncryptedText2.setGeometry(QtCore.QRect(530, 80, 230, 15))
         self.labelEncryptedText2.setObjectName("labelEncryptedText2")
+
+        self.labelKriptografiKlasik = QtWidgets.QLabel(self.centralwidget)
+        self.labelKriptografiKlasik.setGeometry(QtCore.QRect(30, 460, 230, 30))
+        self.labelKriptografiKlasik.setObjectName("labelKriptografiKlasik")
         
 #=======================================================================================================================================================#
 #ENCRYPT
@@ -74,14 +79,36 @@ class UI_MainWindow(object):
         self.textEditPlainText2.setObjectName("textEditPlainText2")
 
 #=======================================================================================================================================================#
-        
+#CLASSIC CRYPTOGRAPHY
+
+        #CAESAR
+        self.pushButtonCaesar = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButtonCaesar.setGeometry(QtCore.QRect(30, 500, 140, 45))
+        self.pushButtonCaesar.setIconSize(QtCore.QSize(20, 20))
+        self.pushButtonCaesar.setObjectName("pushButtonCaesar")
+        self.pushButtonCaesar.clicked.connect(self.openCaesarWindow)
+
+        #VIGENERE
+
+        self.pushButtonVigenere = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButtonVigenere.setGeometry(QtCore.QRect(200, 500, 140, 45))
+        self.pushButtonVigenere.setIconSize(QtCore.QSize(20, 20))
+        self.pushButtonVigenere.setObjectName("pushButtonVigenere")
+        self.pushButtonVigenere.clicked.connect(self.openVigenereWindow)
+
+#=======================================================================================================================================================#
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1020, 25))
         self.menubar.setObjectName("menubar")
+
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
+        self.edit = QtWidgets.QMenu(self.menubar)
+        self.edit.setObjectName("edit")
         MainWindow.setMenuBar(self.menubar)
+
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -94,10 +121,26 @@ class UI_MainWindow(object):
         self.actionQuit.setObjectName("actionQuit")
         self.actionQuit.setShortcut("Ctrl+Q")
         self.actionQuit.triggered.connect(qApp.quit)
+        
+        self.actionCopy = QtWidgets.QAction(MainWindow)
+        self.actionCopy.setShortcut("Ctrl+C")
+        self.actionCopy.setObjectName("actionCopy")
+
+        self.actionPaste = QtWidgets.QAction(MainWindow)
+        self.actionPaste.setShortcut("Ctrl+V")
+        self.actionPaste.setObjectName("actionPaste")
+
+        self.actionCut = QtWidgets.QAction(MainWindow)
+        self.actionCut.setShortcut("Ctrl+X")
+        self.actionCut.setObjectName("actionCut")
 
         self.menu.addAction(self.actionNew)
         self.menu.addAction(self.actionQuit)
+        self.edit.addAction(self.actionCopy)
+        self.edit.addAction(self.actionPaste)
+        self.edit.addAction(self.actionCut)
         self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.edit.menuAction())
         self.retranslateUI(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -113,11 +156,18 @@ class UI_MainWindow(object):
         self.labelPlainText2.setText(_translate("MainWindow", "Plain Text"))
         self.labelEncryptedText1.setText(_translate("MainWindow", "Ciphertext"))
         self.labelEncryptedText2.setText(_translate("MainWindow", "Ciphertext"))
+        self.labelKriptografiKlasik.setText(_translate("MainWindow", "Kriptografi Klasik : "))
         self.pushButtonEncrypt.setText(_translate("MainWindow", "Encrypt"))
         self.pushButtonDecrypt.setText(_translate("MainWindow", "Decrypt"))
+        self.pushButtonCaesar.setText(_translate("MainWindow", "Caesar Cipher"))
+        self.pushButtonVigenere.setText(_translate("MainWindow", "Vigenère Cipher"))
         self.menu.setTitle(_translate("MainWindow", "Menu"))
+        self.edit.setTitle(_translate("MainWindow", "Edit"))
         self.actionNew.setText(_translate("MainWindow", "New"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
+        self.actionCopy.setText(_translate("MainWindow", "Copy"))
+        self.actionPaste.setText(_translate("MainWindow", "Paste"))
+        self.actionCut.setText(_translate("MainWindow", "Cut"))
 
     def encrypt(self):
         textboxValue = self.textEditPlainText1.toPlainText()
@@ -127,11 +177,21 @@ class UI_MainWindow(object):
         self.textEditEncryptedText1.setText(solve.getValue())
 
     def decrypt(self):
-        textboxValue = self.textEditEncryptedText2.toPlainText()
-        inputComboBox = self.comboBoxPilihJenis.currentText()
-        solve = decrypt()
-        solve.setValue(inputComboBox,textboxValue)
-        self.textEditPlainText2.setText(solve.getValue())
+        try:
+            textboxValue = self.textEditEncryptedText2.toPlainText()
+            inputComboBox = self.comboBoxPilihJenis.currentText()
+            solve = decrypt()
+            solve.setValue(inputComboBox,textboxValue)
+            self.textEditPlainText2.setText(solve.getValue())
+        except Exception:
+            inputComboBox = self.comboBoxPilihJenis.currentText()
+            pesan = "Input bukan " + inputComboBox
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Warning")
+            msg.setInformativeText(pesan)
+            msg.setWindowTitle("Warning")
+            msg.exec_()
 
     def disableHash(self):
         inputComboBox = self.comboBoxPilihJenis.currentText()
@@ -144,6 +204,15 @@ class UI_MainWindow(object):
         else:
             self.textEditEncryptedText2.setDisabled(False)
             self.textEditPlainText2.setDisabled(False)
+
+    def openCaesarWindow(self):
+        self.CaesarWindow = QtWidgets.QMainWindow()
+        self.ui = Ui_CaesarWindow()
+        self.ui.setupUi(self.CaesarWindow)
+        self.CaesarWindow.show()
+
+    def openVigenereWindow(self):
+        pass
 
 if __name__ == "__main__":
     import sys

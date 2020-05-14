@@ -8,12 +8,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 
 class Ui_CaesarWindow(object):
     def setupUi(self, CaesarWindow):
         CaesarWindow.setObjectName("CaesarWindow")
-        CaesarWindow.resize(850, 585)
+        CaesarWindow.resize(420, 585)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         CaesarWindow.setFont(font)
@@ -51,26 +53,9 @@ class Ui_CaesarWindow(object):
         self.labelCipherText1.setFont(font)
         self.labelCipherText1.setObjectName("labelCipherText1")
 
-        self.labelPlainText2 = QtWidgets.QLabel(self.centralwidget)
-        self.labelPlainText2.setGeometry(QtCore.QRect(450, 130, 81, 16))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.labelPlainText2.setFont(font)
-        self.labelPlainText2.setObjectName("labelPlainText2")
-
-        self.labelCipherText2 = QtWidgets.QLabel(self.centralwidget)
-        self.labelCipherText2.setGeometry(QtCore.QRect(450, 320, 131, 16))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.labelCipherText2.setFont(font)
-        self.labelCipherText2.setObjectName("labelCipherText2")
-
-        self.lineEditShift = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEditShift.setGeometry(QtCore.QRect(80, 70, 81, 22))
-        self.lineEditShift.setObjectName("lineEditShift")
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.lineEditShift.setFont(font)
+        self.spinBox = QtWidgets.QSpinBox(self.centralwidget)
+        self.spinBox.setGeometry(QtCore.QRect(80, 70, 51, 25))
+        self.spinBox.setObjectName("spinBox")
 
         self.textEditPlainText1 = QtWidgets.QTextEdit(self.centralwidget)
         self.textEditPlainText1.setGeometry(QtCore.QRect(20, 150, 371, 151))
@@ -86,27 +71,13 @@ class Ui_CaesarWindow(object):
         font.setPointSize(10)
         self.textEditCipherText1.setFont(font)
 
-        self.textEditPlainText2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEditPlainText2.setGeometry(QtCore.QRect(450, 150, 371, 151))
-        self.textEditPlainText2.setObjectName("textEditPlainText2")
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.textEditPlainText2.setFont(font)
-
-        self.textEditCipherText2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEditCipherText2.setGeometry(QtCore.QRect(450, 340, 371, 151))
-        self.textEditCipherText2.setObjectName("textEditCipherText2")
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.textEditCipherText2.setFont(font)
-
         self.pushButtonEncrypt = QtWidgets.QPushButton(self.centralwidget)
         self.pushButtonEncrypt.setGeometry(QtCore.QRect(20, 510, 93, 28))
         self.pushButtonEncrypt.setObjectName("pushButtonEncrypt")
         self.pushButtonEncrypt.clicked.connect(self.encrypt)
 
         self.pushButtonDecrypt = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonDecrypt.setGeometry(QtCore.QRect(450, 510, 93, 28))
+        self.pushButtonDecrypt.setGeometry(QtCore.QRect(130, 510, 93, 28))
         self.pushButtonDecrypt.setObjectName("pushButtonDecrypt")
         self.pushButtonDecrypt.clicked.connect(self.decrypt)
 
@@ -129,14 +100,12 @@ class Ui_CaesarWindow(object):
         self.labelShift.setText(_translate("CaesarWindow", "Shift :"))
         self.labelPlainText1.setText(_translate("CaesarWindow", "Input"))
         self.labelCipherText1.setText(_translate("CaesarWindow", "Output"))
-        self.labelPlainText2.setText(_translate("CaesarWindow", "Input"))
-        self.labelCipherText2.setText(_translate("CaesarWindow", "Output"))
         self.pushButtonEncrypt.setText(_translate("CaesarWindow", "Encrypt"))
         self.pushButtonDecrypt.setText(_translate("CaesarWindow", "Decrypt"))
     
     def encrypt(self): 
         textboxValue = self.textEditPlainText1.toPlainText()
-        shift = int(self.lineEditShift.text())
+        shift = self.spinBox.value()
         encrypted = "" 
         for char in textboxValue:
             if char == ' ':
@@ -148,8 +117,8 @@ class Ui_CaesarWindow(object):
         self.textEditCipherText1.setText(encrypted)
 
     def decrypt(self):
-        textboxValue = self.textEditPlainText2.toPlainText()
-        shift = int(self.lineEditShift.text())
+        textboxValue = self.textEditPlainText1.toPlainText()
+        shift = self.spinBox.value()
         decrypted = "" 
         for char in textboxValue:
             if char == ' ':
@@ -158,7 +127,7 @@ class Ui_CaesarWindow(object):
                 decrypted = decrypted + chr((ord(char) - shift - 65) % 26 + 65)
             else:
                 decrypted = decrypted + chr((ord(char) - shift - 97) % 26 + 97)
-        self.textEditCipherText2.setText(decrypted)
+        self.textEditCipherText1.setText(decrypted)
 
 
 if __name__ == "__main__":
