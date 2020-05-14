@@ -32,3 +32,6 @@ SHA-384 <br>
 SHA-512 <br>
 Caesar Cipher <br>
 Vigenère Cipher <br>
+
+# Example
+![](Images/1.png)
