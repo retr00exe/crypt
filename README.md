@@ -13,7 +13,7 @@ pip install pyqt5-tools
 ```
 Run program
 ```
-Python crypt.py
+python crypt.py
 ```
 
 # Fitur encoding, enkripsi & hashing
