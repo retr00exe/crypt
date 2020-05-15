@@ -79,10 +79,13 @@ class Ui_VigenereWindow(object):
 
     def generateKey(self, string, key): 
             key = list(key) 
+            string = list(string)
             if len(string) == len(key): 
                 return(key) 
             else: 
-                for i in range(len(string) - len(key)): 
+                for i in range(len(string)):
+                    if string[i]==' ':
+                        key.append(' ')
                     key.append(key[i % len(key)]) 
             return("". join(key)) 
         
@@ -91,7 +94,11 @@ class Ui_VigenereWindow(object):
         string = self.textEditPlainText.toPlainText()
         inputKey = self.lineEditKey.text()
         key = self.generateKey(string,inputKey)
+        print(key)
+        print(string)
         for i in range(len(string)): 
+            if string[i]==' ':
+                cipher_text.append(' ')
             x = (ord(string[i]) + ord(key[i])) % 26
             x += ord('A') 
             cipher_text.append(chr(x)) 
@@ -104,6 +111,8 @@ class Ui_VigenereWindow(object):
         inputKey = self.lineEditKey.text()
         key = self.generateKey(string,inputKey)
         for i in range(len(string)): 
+            if string[i]==' ':
+                cipher_text.append(' ')
             x = (ord(string[i]) - ord(key[i]) + 26) % 26
             x += ord('A') 
             cipher_text.append(chr(x)) 
