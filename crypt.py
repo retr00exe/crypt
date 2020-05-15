@@ -114,10 +114,6 @@ class UI_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.actionNew = QtWidgets.QAction(MainWindow)
-        self.actionNew.setObjectName("actionNew")
-        self.actionNew.setShortcut("Ctrl+N")
-
         self.actionQuit = QtWidgets.QAction(MainWindow)
         self.actionQuit.setObjectName("actionQuit")
         self.actionQuit.setShortcut("Ctrl+Q")
@@ -143,7 +139,6 @@ class UI_MainWindow(object):
         self.actionVigenere.setObjectName("actionVigenere")
         self.actionVigenere.triggered.connect(self.openVigenereWindow)
 
-        self.menu.addAction(self.actionNew)
         self.menu.addAction(self.actionQuit)
 
         self.edit.addAction(self.actionCopy)
@@ -180,7 +175,6 @@ class UI_MainWindow(object):
         self.menu.setTitle(_translate("MainWindow", "Menu"))
         self.edit.setTitle(_translate("MainWindow", "Edit"))
         self.navigate.setTitle(_translate("MainWindow", "Navigate"))
-        self.actionNew.setText(_translate("MainWindow", "New"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
         self.actionCopy.setText(_translate("MainWindow", "Copy"))
         self.actionPaste.setText(_translate("MainWindow", "Paste"))

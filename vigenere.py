@@ -55,6 +55,7 @@ class Ui_VigenereWindow(object):
         self.pushButtonDecrypt = QtWidgets.QPushButton(self.centralwidget)
         self.pushButtonDecrypt.setGeometry(QtCore.QRect(130, 510, 93, 28))
         self.pushButtonDecrypt.setObjectName("pushButtonDecrypt")
+        self.pushButtonDecrypt.clicked.connect(self.decrypt)
         VigenereWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(VigenereWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 420, 26))
@@ -97,14 +98,17 @@ class Ui_VigenereWindow(object):
         encrypted = "" . join(cipher_text)
         self.textEditCipherText.setText(encrypted)
 
-    def decrypt(self, cipher_text, key): 
-        orig_text = [] 
-        for i in range(len(cipher_text)): 
-            x = (ord(cipher_text[i]) - 
-                ord(key[i]) + 26) % 26
+    def decrypt(self): 
+        cipher_text = [] 
+        string = self.textEditPlainText.toPlainText()
+        inputKey = self.lineEditKey.text()
+        key = self.generateKey(string,inputKey)
+        for i in range(len(string)): 
+            x = (ord(string[i]) - ord(key[i]) + 26) % 26
             x += ord('A') 
-            orig_text.append(chr(x)) 
-        return("" . join(orig_text)) 
+            cipher_text.append(chr(x)) 
+        decrypted = "" . join(cipher_text)
+        self.textEditCipherText.setText(decrypted)
 
 if __name__ == "__main__":
     import sys
