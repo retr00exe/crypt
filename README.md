@@ -32,3 +32,14 @@ SHA-384 <br>
 SHA-512 <br>
 Caesar Cipher <br>
 Vigenère Cipher <br>
+
+# Example
+**Caesar Cipher** <br>
+<img src="Image/1.png" width="40%" height="40%" alt="Caesar Cipher"><br>
+<br>
+**Base64** <br>
+<img src="Image/2.png" width="80%" height="80%" alt="Base64"><br>
+<br>
+**SHA-512** <br>
+<img src="Image/3.png" width="80%" height="80%" alt="SHA-512"><br>
+<br>
