@@ -32,6 +32,8 @@ SHA-384 <br>
 SHA-512 <br>
 Caesar Cipher <br>
 Vigenère Cipher <br>
+RSA (Coming soon) <br>
+AES (Coming soon) <br>
 
 # Example
 **Caesar Cipher** <br>
